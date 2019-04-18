@@ -5,14 +5,13 @@
 #include <assert.h>
 #include <string.h>
 
-#include <Qdebug>
 
-#ifndef QT_NO_DEBUG
+#ifndef NDEBUG
 
 #define mdbg \
     printf("%s(line %d): %s()\t$$$$$$$$$$$$$$$$$$$$\n", __FILE__, __LINE__, __FUNCTION__);
 
-#define m_debug(args) \
+#define mdebug(args...) \
 do { \
     printf("%s(line %d): %s():\t", __FILE__, __LINE__, __FUNCTION__); \
     printf(args); \
@@ -33,7 +32,7 @@ printf("\t%s:%d\n", __FILE__, __LINE__)
 #else
 
 #define mdbg
-#define m_debug(args)
+#define mdebug(args)
 #define IF(arg) if(arg)
 #define out_str(type, buff, len)
 #endif // NDEBUG
@@ -44,5 +43,10 @@ do { \
     printf(args); \
 } while(false)
 
+
+// 打印当前线程的函数栈
+void stack_trace(const char *ptr = NULL);
+void log_err_to_file(const char *log, FILE *log_file);
+void log_dbg_info(const char *log);
 
 #endif // DEBUGCTRL_H
